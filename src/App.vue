@@ -26,13 +26,13 @@
       scrollTrigger: {
         trigger: '.boxContainer',
         start: 'top 10%',
-        // end: '+=1000px',
+        end: 'bottom 35%',
         // pin: true,
         scrub: true
       }
     })
     tl.to('.box', {
-      top: '50%',
+      top: '40%',
       left: '51%',
       xPercent: '-100',
       duration: 1,
@@ -49,7 +49,7 @@
       // left: '51%',
       // xPercent: '-100',
       left: '52%',
-      rotate: '136',
+      rotate: '125',
       duration: 1,
       position: 'absolute'
     }, '<')
@@ -105,10 +105,10 @@
     <div class="min-h-300vh bg-black overflow-x-hidden">
       <h2 class="showText whitespace-nowrap text-100px text-stroke-1px text-stroke-white text-transparent font-bold inline-block">Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan</h2>
       <div class="relative w-full min-h-[calc(100vh-100px)] boxContainer">
-        <div class="box absolute w-100px h-100px top-50% -translate-y-50% rotate-46">
+        <div class="box absolute w-100px h-100px top-40% -translate-y-50% rotate-46">
           <img src="https://cdn-icons-png.flaticon.com/512/4334/4334098.png" alt="" class="w-100px object-cover">
         </div>
-        <div class="box2 absolute w-100px h-100px top-50% left-50% -translate-y-50%">
+        <div class="box2 absolute w-100px h-100px top-40% left-50% -translate-y-50%">
           <img src="https://cdn-icons-png.flaticon.com/512/415/415682.png" alt="" class="w-100px object-cover">
         </div>
       </div>
