@@ -13,6 +13,7 @@
     "vue": "^3.2.37"
   },
   "devDependencies": {
+    "@unocss/preset-uno": "^0.45.30",
     "@vitejs/plugin-vue": "^3.1.0",
     "unocss": "^0.45.30",
     "unplugin-auto-import": "^0.11.2",
