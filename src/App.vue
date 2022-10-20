@@ -83,21 +83,39 @@
     tl3.to('.scaleImg', {
       width: '500px'
     })
-
     const tl4 = gsap.timeline({
       scrollTrigger: {
-        trigger: '.scaleContainer2',
-        start: 'top 35%',
-        end: 'bottom 90%',
-        markers: true,
-        toggleActions: 'play reset reset none'
+        trigger: '.scaleBottomContainer',
+        start: 'top top',
+        end: '+=2000px',
+        pin: true,
+        scrub: true
       }
     })
-    tl4.to('.scaleImg2', {
-      duration: 1.5,
-      ease: 'expo',
-      scale: '1'
+    tl4.to('.scaleCircle', {
+      margin: '0 auto 0 auto',
+      width: '3000px',
+      height: '3000px',
+      y: '-300px'
+    }).to('.scaleText', {
+      fontSize: '300px'
+    }, '<').to('.opacityText', {
+      opacity: '1',
+      y: '0'
     })
+    .to('.opacityText', {
+      opacity: '0',
+      y: '-100'
+    })
+    .to('.opacityText2', {
+      opacity: '1',
+      y: '0'
+    })
+    .to('.scaleBottomContainer', {
+      backgroundColor: '#feb401'
+    }, '<').to('.scaleCircle', {
+      display: 'none'
+    }, '<')
     gsapAnimation()
   })
 </script>
@@ -125,9 +143,14 @@
       <div class="bg-white w-full min-h-screen flex items-center justify-center scaleContainer">
         <img src="https://images.unsplash.com/photo-1601823984263-b87b59798b70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="scaleImg w-200px object-contain">
       </div>
-      <div class="bg-black w-full min-h-screen flex items-center justify-center scaleContainer2">
-        <img src="https://images.unsplash.com/photo-1605523746900-8aa30db1befd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80" class="scaleImg2 w-500px object-contain scale-0">
+      <div class="scaleBottomContainer min-h-screen relative">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white z-10 text-100px"><p class="opacityText opacity-0 translate-y-100px">Hi</p></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white z-10 text-100px"><p class="opacityText2 opacity-0 translate-y-100px whitespace-nowrap">HAVE A NICE DAY</p></div>
+        <div class="scaleCircle absolute top-100px left-50% -translate-x-50% flex justify-center items-center font-bold w-60px h-60px bg-#feb401 mt-100px rounded-full">
+          <p class="text-20px scaleText"> ↓</p>  
+        </div>
       </div>
+      <div class="w-full min-h-screen bg-white"></div>
     </div>
   </div>
 </template>
