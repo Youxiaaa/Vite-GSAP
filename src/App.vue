@@ -150,7 +150,24 @@
           <p class="text-20px scaleText"> ↓</p>  
         </div>
       </div>
-      <div class="w-full min-h-screen bg-white"></div>
+      <div class="w-full min-h-screen bg-white grid grid-cols-2 flex items-center justify-center">
+        <div class="col-span-1 flex flex-col gap-50px max-w-1440px mx-auto px-5%">
+          <h2 class="text-100px font-bold">Kyoto</h2>
+          <p class="text-24px font-bold lh-30px">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae expedita laboriosam velit doloremque voluptatem mollitia, voluptatum recusandae nisi eveniet fugiat alias et explicabo, voluptatibus sit iusto exercitationem neque illum eos?</p>
+        </div>
+        <div class="col-span-1 flex flex-col gap-50px max-w-1440px mx-auto px-5%">
+          <img src="https://images.unsplash.com/photo-1505069446780-4ef442b5207f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-100% object-cover">
+        </div>
+      </div>
+      <div class="w-full min-h-screen bg-white grid grid-cols-2 flex items-center justify-center">
+        <div class="col-span-1 flex flex-col gap-50px max-w-1440px mx-auto px-5%">
+          <img src="https://images.unsplash.com/photo-1505069446780-4ef442b5207f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-100% object-cover">
+        </div>
+        <div class="col-span-1 flex flex-col gap-50px max-w-1440px mx-auto px-5%">
+          <h2 class="text-100px font-bold">Kyoto</h2>
+          <p class="text-24px font-bold lh-30px">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae expedita laboriosam velit doloremque voluptatem mollitia, voluptatum recusandae nisi eveniet fugiat alias et explicabo, voluptatibus sit iusto exercitationem neque illum eos?</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
