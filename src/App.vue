@@ -11,14 +11,14 @@
       xPercent: '-50',
       position: 'absolute',
       ease: 'none',
-      duration: 25,
+      duration: 30,
       repeat: -1
     })
     gsap.to('.newsTicker2', {
       xPercent: '50',
       position: 'absolute',
       ease: 'none',
-      duration: 25,
+      duration: 30,
       repeat: -1
     })
     const text = new SplitType('.splitText', { types: 'words, chars' })
@@ -30,11 +30,10 @@
       delay: 0.3,
       stagger: { amount: 0.1 }
     })
-    gsap.to('.firstImg', {
-      opacity: '1',
-      scale: '1',
+    gsap.to('.showImgCurtain', {
+      yPercent: '100',
       duration: 1,
-      ease: 'power4.out',
+      ease: 'expo',
       delay: .7
     })
   }
@@ -61,7 +60,7 @@
       display: 'none'
     })
     .to('.bodyBg', {
-      className: 'bg-gradient-to-l from-#783246 to-#4B4D70'
+      className: 'bg-gradient-to-l from-#8B4151 to-#665879'
     }, '<')
   }
 
@@ -79,10 +78,6 @@
       opacity: '1',
       duration: 1
     })
-    .to('.fadeText1 p', {
-      letterSpacing: '100px',
-      duration: 1
-    })
     .to('.fadeText1', {
       y: '-100px',
       opacity: 0,
@@ -92,10 +87,6 @@
       opacity: 1,
       duration: 1
     })
-    .to('.fadeText2 p', {
-      letterSpacing: '100px',
-      duration: 1
-    })
     .to('.fadeText2', {
       y: '-100px',
       opacity: 0,
@@ -103,10 +94,6 @@
     })
     .to('.fadeText3 ', {
       opacity: 1,
-      duration: 1
-    })
-    .to('.fadeText3 p', {
-      letterSpacing: '100px',
       duration: 1
     })
   }
@@ -168,13 +155,16 @@
 
       <!-- 左文右圖 -->
       <div class="absolute top-1/2 -translate-y-1/2 left-0 w-full text-white text-100px px-5%">
-        <div class="grid grid-cols-2 gap-50px items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-50px items-center">
           <div class="col-span-1">
             <h2 class="font-bold splitText overflow-hidden">AR T</h2>
             <p class="text-30px lh-40px splitText overflow-hidden">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex numquam assumenda sed eligendi odio eveniet culpa voluptas dolorem doloremque. Ratione.</p>
           </div>
           <div class="col-span-1 flex items-center justify-center">
-            <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="max-w-300px firstImg opacity-0 scale-0">
+            <div class="relative w-300px h-0 pb-[calc(100%/4*3)] overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="absolute top-0 left-0 w-full h-full">
+              <div class="absolute w-full h-full top-0 left-0 bg-black showImgCurtain"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -190,19 +180,19 @@
     <!-- 第三區塊 -->
     <div class="w-full relative fadeContainer">
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fadeText1 opacity-0">
-        <p class="text-100px font-bold text-white tracking-20px text-center">GSAP</p>
+        <p class="text-32px md:text-100px font-bold text-white tracking-20px text-center">GSAP</p>
       </div>
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fadeText2 opacity-0">
-        <p class="text-100px font-bold text-white tracking-20px text-center">IS</p>
+        <p class="text-32px md:text-100px font-bold text-white tracking-20px text-center">IS</p>
       </div>
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fadeText3 opacity-0">
-        <p class="text-100px font-bold text-white tracking-20px text-center">AWESOME</p>
+        <p class="text-32px md:text-100px font-bold text-white tracking-20px text-center">AWESOME</p>
       </div>
     </div>
 
     <!-- 第四區塊 -->
     <div class=" min-h-screen bg-black mt-300px px-[5%] overflow-x-hidden mx-auto pt-300px">
-      <div class="columns-3 gap-50px">
+      <div class="columns-3 md:columns-5 gap-50px">
         <img src="https://images.unsplash.com/photo-1501472393568-6d98729ac121?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
         <img src="https://images.unsplash.com/photo-1559913929-08b6989ec45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
         <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" class="w-full mt-50px fadeImg opacity-0">
