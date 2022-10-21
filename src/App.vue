@@ -1,245 +1,232 @@
 <script setup>
   import { ScrollTrigger, ScrollToPlugin } from 'gsap/all'
   import gsap from 'gsap'
-
+  import SplitType from 'split-type'
+  import { onMounted } from 'vue'
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
-  // 跑馬燈
-  const gsapAnimation = () => {
-    gsap.to('.showText', {
+
+  const newsTicker = () => {
+    gsap.to('.newsTicker', {
       xPercent: '-50',
+      position: 'absolute',
       ease: 'none',
-      duration: 10,
+      duration: 25,
       repeat: -1
     })
-    gsap.to('.showText2', {
+    gsap.to('.newsTicker2', {
       xPercent: '50',
+      position: 'absolute',
       ease: 'none',
-      duration: 10,
-      repeat: -1,
-      position: 'absolute'
+      duration: 25,
+      repeat: -1
     })
-    gsap.fromTo('.shineText',
-    0,
-    {
-      opacity: '0'
-    },
-    {
+    const text = new SplitType('.splitText', { types: 'words, chars' })
+    gsap.from(text.chars, {
+      opacity: 0,
+      y: 100,
+      ease: 'expo',
+      duration: 1.5,
+      delay: 0.3,
+      stagger: { amount: 0.1 }
+    })
+    gsap.to('.firstImg', {
       opacity: '1',
-      repeat: -1,
-      yoyo: true,
-      repeatDelay: 0.3
+      scale: '1',
+      duration: 1,
+      ease: 'power4.out',
+      delay: .7
     })
+  }
+
+  const scaleAnimation = () => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.scaleContainer',
+        start: 'top center',
+        end: '+=3000px',
+        pin: true,
+        scrub: true
+      }
+    })
+    tl.to('.scaleCircle', {
+      scale: '100',
+      duration: 1
+    })
+    .to('.scaleText', {
+      opacity: '0',
+      duration: 1
+    }, '<')
+    .to('.scaleCircle', {
+      display: 'none'
+    })
+    .to('.bodyBg', {
+      className: 'bg-gradient-to-l from-#783246 to-#4B4D70'
+    }, '<')
+  }
+
+  const fadeAnimation = () => {
+    const tl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.fadeContainer',
+        start: 'top center',
+        end: '+=5000px',
+        pin: true,
+        scrub: true
+      }
+    })
+    tl2.to('.fadeText1', {
+      opacity: '1',
+      duration: 1
+    })
+    .to('.fadeText1 p', {
+      letterSpacing: '100px',
+      duration: 1
+    })
+    .to('.fadeText1', {
+      y: '-100px',
+      opacity: 0,
+      duration: 1
+    })
+    .to('.fadeText2 ', {
+      opacity: 1,
+      duration: 1
+    })
+    .to('.fadeText2 p', {
+      letterSpacing: '100px',
+      duration: 1
+    })
+    .to('.fadeText2', {
+      y: '-100px',
+      opacity: 0,
+      duration: 1
+    })
+    .to('.fadeText3 ', {
+      opacity: 1,
+      duration: 1
+    })
+    .to('.fadeText3 p', {
+      letterSpacing: '100px',
+      duration: 1
+    })
+  }
+
+  const fadeImgAnimation = () => {
     gsap.utils.toArray('.fadeImg').forEach((item) => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: item,
-          start: 'top bottom',
+          start: 'top center',
           end: 'bottom top',
-          toggleActions: 'play none none reverse'
+          toggleActions: 'play none none none'
         }
       })
       tl.to(item, {
         ease: 'expo',
-        duration: 1.5,
+        y: '-300px',
         opacity: '1',
-        y: '0'
+        duration: 1.5
       })
-    })
-    gsap.utils.toArray('.fadeContent').forEach((item) => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: item,
-          start: 'top 80%',
-          end: 'bottom top',
-          toggleActions: 'play none none reverse'
-        }
-      })
-      tl.to(item, {
-        ease: 'expo',
-        duration: 1.5,
-        opacity: '1',
-        y: '0'
-      })
-    })
-    const newTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.typingContainer',
-        start: 'top top',
-        end: '+=3000px',
-        pin: true,
-        // markers: true,
-        scrub: true
-      }
-    })
-    newTl.to('.typingText1', {
-      ease: 'none',
-      duration: 1,
-      display: 'block'
-    }).to('.typingText2', {
-      ease: 'none',
-      duration: 1,
-      display: 'block'
-    }).to('.typingText3', {
-      ease: 'none',
-      duration: 1,
-      display: 'block'
-    }).to('.typingText4', {
-      ease: 'none',
-      duration: 1,
-      display: 'block'
-    }).to('.typingText5', {
-      ease: 'none',
-      duration: 1,
-      display: 'block'
     })
   }
 
   onMounted(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.boxContainer',
-        start: 'top top',
-        // 增加滾動長度
-        // end: '+=1000px',
-        end: 'bottom center',
-        // pin: true,
-        scrub: true
-      }
-    })
-    tl.to('.box', {
-      top: '40%',
-      left: '51%',
-      xPercent: '-100',
-      duration: 1,
-      position: 'absolute'
-    }).to('.box2', {
-      top: '100%',
-      left: '50%',
-      duration: 1,
-      rotate: '90',
-      xPercent: '-50',
-      position: 'absolute'
-    }).to('.box', {
-      top: '90%',
-      left: '52%',
-      rotate: '125',
-      duration: 1,
-      position: 'absolute'
-    }, '<')
-
-    const tl2 = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.imgContainer',
-        start: 'top top',
-        end: '+=3000px',
-        pin: true,
-        scrub: true
-      }
-    })
-    tl2.to('.img1', {
-      xPercent: '-100'
-    }).to('.img2', {
-      xPercent: '100'
-    })
-
-    const tl3 = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.scaleContainer',
-        start: 'top top',
-        end: '+=3000px',
-        pin: true,
-        scrub: true
-      }
-    })
-    tl3.to('.scaleImg', {
-      width: '500px'
-    })
-    const tl4 = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.scaleBottomContainer',
-        start: 'top top',
-        end: '+=2500px',
-        pin: true,
-        scrub: true
-      }
-    })
-    tl4.to('.scaleCircle', {
-      margin: '0 auto 0 auto',
-      scale: '50'
-    }).to('.scaleText', {
-      opacity: '0',
-      fontSize: '100px',
-      y: '100px'
-    }, '<').to('.opacityText', {
-      opacity: '1',
-      y: '0'
-    })
-    .to('.opacityText', {
-      opacity: '0',
-      y: '-100'
-    })
-    .to('.opacityText2', {
-      opacity: '1',
-      y: '0'
-    })
-    .to('.scaleBottomContainer', {
-      backgroundColor: '#feb401'
-    }, '<').to('.scaleCircle', {
-      display: 'none'
-    }, '<')
-    gsapAnimation()
+    newsTicker()
+    scaleAnimation()
+    fadeAnimation()
+    setTimeout(() => {
+      fadeImgAnimation()
+    }, 500)
   })
 </script>
 
 <template>
-  <div>
-    <div class="min-h-300vh bg-black overflow-x-hidden">
-      <h2 class="showText whitespace-nowrap text-100px text-stroke-1px text-stroke-white text-transparent font-bold inline-block">Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan</h2>
-      <div class="relative w-full min-h-[calc(100vh-100px)] boxContainer">
-        <div class="box absolute w-100px h-100px top-40% -translate-y-50% rotate-46">
-          <img src="https://cdn-icons-png.flaticon.com/512/4334/4334098.png" alt="" class="w-100px object-cover">
-        </div>
-        <div class="box2 absolute w-100px h-100px top-40% left-50% -translate-y-50%">
-          <img src="https://cdn-icons-png.flaticon.com/512/415/415682.png" alt="" class="w-100px object-cover">
-        </div>
-      </div>
-      <div class="relative">
-        <h2 class="showText2 whitespace-nowrap -right-0 bottom-0 flex-none text-100px text-stroke-1px text-stroke-white text-transparent font-bold inline-block">Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan Japan</h2>
-      </div>
-      <div class="relative w-full min-h-screen imgContainer overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1596332996407-d8d5d3b60e8e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" class="img1 w-full h-full absolute top-0 left-0 object-cover object-bottom z-20">
-        <img src="https://images.unsplash.com/photo-1526298386254-516d688c9e2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1726&q=80" class="img2 w-full h-full absolute top-0 left-0 object-cover object-bottom z-10">
-        <img src="https://images.unsplash.com/photo-1509023464722-18d996393ca8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" class="img3 w-full h-full absolute top-0 left-0 object-cover z-0">
-      </div>
-      <div class="bg-white w-full min-h-screen flex items-center justify-center scaleContainer">
-        <img src="https://images.unsplash.com/photo-1601823984263-b87b59798b70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="scaleImg w-200px object-contain">
-      </div>
-      <div class="scaleBottomContainer min-h-screen relative">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white z-10 text-100px"><p class="opacityText opacity-0 translate-y-100px">Hi</p></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white z-10 text-100px"><p class="opacityText2 opacity-0 translate-y-100px whitespace-nowrap">HAVE A NICE DAY</p></div>
-        <div class="absolute top-100px left-50% -translate-x-50% flex justify-center items-center font-bold w-60px h-60px bg-#feb401 mt-100px rounded-full">
-          <div class="absolute top-0 left-0 w-full h-full scaleCircle bg-#feb401 rounded-full"></div>
-          <p class="text-20px scaleText"> ↓</p>  
-        </div>
-      </div>
-      <div class="w-full min-h-screen bg-white grid grid-cols-2 flex items-center justify-center">
-        <div class="col-span-1 flex flex-col gap-50px max-w-1440px mx-auto px-5% fadeContent opacity-0">
-          <h2 class="text-100px font-bold">Kyoto</h2>
-          <p class="text-24px font-bold lh-30px">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae expedita laboriosam velit doloremque voluptatem mollitia, voluptatum recusandae nisi eveniet fugiat alias et explicabo, voluptatibus sit iusto exercitationem neque illum eos?</p>
-        </div>
-        <div class="col-span-1 flex flex-col gap-50px max-w-1440px mx-auto px-5%">
-          <img src="https://images.unsplash.com/photo-1505069446780-4ef442b5207f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-100% object-cover fadeImg opacity-0">
+  <div class="bodyBg bg-black overflow-hidden">
+    <!-- 第一區塊 -->
+    <div class="w-full min-h-screen relative overflow-hidden">
+      <!-- 上下跑馬燈 -->
+      <ul class="newsTicker whitespace-nowrap text-transparent text-stroke-1px text-stroke-white text-80px">
+        <li>
+          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+        </li>
+      </ul>
+      <ul class="absolute bottom-0 -right-0% newsTicker2 whitespace-nowrap text-transparent text-stroke-1px text-stroke-white text-80px">
+        <li>
+          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+        </li>
+      </ul>
+
+      <!-- 左文右圖 -->
+      <div class="absolute top-1/2 -translate-y-1/2 left-0 w-full text-white text-100px px-5%">
+        <div class="grid grid-cols-2 gap-50px items-center">
+          <div class="col-span-1">
+            <h2 class="font-bold splitText overflow-hidden">AR T</h2>
+            <p class="text-30px lh-40px splitText overflow-hidden">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex numquam assumenda sed eligendi odio eveniet culpa voluptas dolorem doloremque. Ratione.</p>
+          </div>
+          <div class="col-span-1 flex items-center justify-center">
+            <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="max-w-300px firstImg opacity-0 scale-0">
+          </div>
         </div>
       </div>
-      <div class="w-full min-h-screen bg-white grid grid-cols-2 flex items-center justify-center">
-        <div class="col-span-1 flex flex-col gap-50px max-w-1440px mx-auto px-5%">
-          <img src="https://images.unsplash.com/photo-1505069446780-4ef442b5207f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-100% object-cover fadeImg opacity-0">
-        </div>
-        <div class="col-span-1 flex flex-col gap-50px max-w-1440px mx-auto px-5% fadeContent opacity-0">
-          <h2 class="text-100px font-bold">Kyoto</h2>
-          <p class="text-24px font-bold lh-30px">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae expedita laboriosam velit doloremque voluptatem mollitia, voluptatum recusandae nisi eveniet fugiat alias et explicabo, voluptatibus sit iusto exercitationem neque illum eos?</p>
-        </div>
+
+    </div>
+    <!-- 第二區塊 -->
+    <div class="w-full relative scaleContainer">
+      <div class="scaleCircle w-60px h-60px rounded-full bg-gradient-to-l from-#C30500 to-#017AB6 absolute top-0 left-1/2 -translate-x-1/2 flex items-center justify-center text-white">
+        <p class="scaleText">Go</p>
+      </div>
+    </div>
+
+    <!-- 第三區塊 -->
+    <div class="w-full relative fadeContainer">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fadeText1 opacity-0">
+        <p class="text-100px font-bold text-white tracking-20px text-center">GSAP</p>
+      </div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fadeText2 opacity-0">
+        <p class="text-100px font-bold text-white tracking-20px text-center">IS</p>
+      </div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fadeText3 opacity-0">
+        <p class="text-100px font-bold text-white tracking-20px text-center">AWESOME</p>
+      </div>
+    </div>
+
+    <!-- 第四區塊 -->
+    <div class=" min-h-screen bg-black mt-300px px-[5%] overflow-x-hidden mx-auto pt-300px">
+      <div class="columns-3 gap-50px">
+        <img src="https://images.unsplash.com/photo-1501472393568-6d98729ac121?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1559913929-08b6989ec45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1566592802312-4fb1d22b3d60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1501472266257-6fbdb19654ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1501472393568-6d98729ac121?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1559913929-08b6989ec45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1566592802312-4fb1d22b3d60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1501472266257-6fbdb19654ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1501472393568-6d98729ac121?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1559913929-08b6989ec45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1566592802312-4fb1d22b3d60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1501472266257-6fbdb19654ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1501472393568-6d98729ac121?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1559913929-08b6989ec45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1566592802312-4fb1d22b3d60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        <img src="https://images.unsplash.com/photo-1501472266257-6fbdb19654ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
       </div>
     </div>
   </div>

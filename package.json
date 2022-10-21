@@ -1,5 +1,5 @@
 {
-  "name": "vite-gsap",
+  "name": "vite-gsap-yarn",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,14 +10,13 @@
   },
   "dependencies": {
     "gsap": "^3.11.3",
+    "split-type": "^0.3.2",
     "vue": "^3.2.37"
   },
   "devDependencies": {
     "@unocss/preset-uno": "^0.45.30",
     "@vitejs/plugin-vue": "^3.1.0",
     "unocss": "^0.45.30",
-    "unplugin-auto-import": "^0.11.2",
-    "unplugin-vue-components": "^0.22.8",
     "vite": "^3.1.0"
   }
 }
