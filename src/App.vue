@@ -19,6 +19,64 @@
       repeat: -1,
       position: 'absolute'
     })
+    gsap.fromTo('.shineText',
+    0,
+    {
+      opacity: '0'
+    },
+    {
+      opacity: '1',
+      repeat: -1,
+      yoyo: true,
+      repeatDelay: 0.3
+    })
+    gsap.utils.toArray('.fadeImg').forEach((item) => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.fadeContainer',
+          start: 'top center',
+          end: 'bottom top',
+          toggleActions: 'play none none reverse'
+        }
+      })
+      tl.to(item, {
+        ease: 'expo',
+        duration: 1.5,
+        opacity: '1',
+        y: '0'
+      })
+    })
+    const newTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.typingContainer',
+        start: 'top top',
+        end: '+=3000px',
+        pin: true,
+        // markers: true,
+        scrub: true
+      }
+    })
+    newTl.to('.typingText1', {
+      ease: 'none',
+      duration: 1,
+      display: 'block'
+    }).to('.typingText2', {
+      ease: 'none',
+      duration: 1,
+      display: 'block'
+    }).to('.typingText3', {
+      ease: 'none',
+      duration: 1,
+      display: 'block'
+    }).to('.typingText4', {
+      ease: 'none',
+      duration: 1,
+      display: 'block'
+    }).to('.typingText5', {
+      ease: 'none',
+      duration: 1,
+      display: 'block'
+    })
   }
 
   onMounted(() => {
@@ -48,8 +106,6 @@
       position: 'absolute'
     }).to('.box', {
       top: '90%',
-      // left: '51%',
-      // xPercent: '-100',
       left: '52%',
       rotate: '125',
       duration: 1,
@@ -83,21 +139,6 @@
     tl3.to('.scaleImg', {
       width: '500px'
     })
-
-    const tl4 = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.scaleContainer2',
-        start: 'top 35%',
-        end: 'bottom 90%',
-        markers: true,
-        toggleActions: 'play reset reset none'
-      }
-    })
-    tl4.to('.scaleImg2', {
-      duration: 1.5,
-      ease: 'expo',
-      scale: '1'
-    })
     gsapAnimation()
   })
 </script>
@@ -125,8 +166,17 @@
       <div class="bg-white w-full min-h-screen flex items-center justify-center scaleContainer">
         <img src="https://images.unsplash.com/photo-1601823984263-b87b59798b70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="scaleImg w-200px object-contain">
       </div>
-      <div class="bg-black w-full min-h-screen flex items-center justify-center scaleContainer2">
-        <img src="https://images.unsplash.com/photo-1605523746900-8aa30db1befd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80" class="scaleImg2 w-500px object-contain scale-0">
+      <div class="bg-black w-full min-h-screen flex items-center gap-5 md:gap-10 justify-center fadeContainer">
+        <img src="https://images.unsplash.com/photo-1605523746900-8aa30db1befd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80" class="fadeImg w-500px object-contain opacity-0 translate-y-100px">
+        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" class="fadeImg w-400px object-contain opacity-0 translate-y-150px">
+      </div>
+      <div class="typingContainer bg-#feb401 w-full min-h-screen flex items-center gap-5 md:gap-10 justify-center fadeContainer overflow-hidden">
+        <p class="typingText1 hidden text-62px font-bold text-stroke-black text-stroke-1px text-transparent">好</p>
+        <p class="typingText2 hidden text-62px font-bold text-stroke-black text-stroke-1px text-transparent">想</p>
+        <p class="typingText3 hidden text-62px font-bold text-stroke-black text-stroke-1px text-transparent">吃</p>
+        <p class="typingText4 hidden text-62px font-bold text-stroke-black text-stroke-1px text-transparent">雞</p>
+        <p class="typingText5 hidden text-62px font-bold text-stroke-black text-stroke-1px text-transparent">排</p>
+        <p class="text-62px text-#333 shineText opacity-0">_</p>
       </div>
     </div>
   </div>
