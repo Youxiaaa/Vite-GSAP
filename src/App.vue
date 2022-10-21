@@ -33,8 +33,24 @@
     gsap.utils.toArray('.fadeImg').forEach((item) => {
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: '.fadeContainer',
-          start: 'top center',
+          trigger: item,
+          start: 'top bottom',
+          end: 'bottom top',
+          toggleActions: 'play none none reverse'
+        }
+      })
+      tl.to(item, {
+        ease: 'expo',
+        duration: 1.5,
+        opacity: '1',
+        y: '0'
+      })
+    })
+    gsap.utils.toArray('.fadeContent').forEach((item) => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 80%',
           end: 'bottom top',
           toggleActions: 'play none none reverse'
         }
@@ -139,6 +155,39 @@
     tl3.to('.scaleImg', {
       width: '500px'
     })
+    const tl4 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.scaleBottomContainer',
+        start: 'top top',
+        end: '+=2500px',
+        pin: true,
+        scrub: true
+      }
+    })
+    tl4.to('.scaleCircle', {
+      margin: '0 auto 0 auto',
+      scale: '50'
+    }).to('.scaleText', {
+      opacity: '0',
+      fontSize: '100px',
+      y: '100px'
+    }, '<').to('.opacityText', {
+      opacity: '1',
+      y: '0'
+    })
+    .to('.opacityText', {
+      opacity: '0',
+      y: '-100'
+    })
+    .to('.opacityText2', {
+      opacity: '1',
+      y: '0'
+    })
+    .to('.scaleBottomContainer', {
+      backgroundColor: '#feb401'
+    }, '<').to('.scaleCircle', {
+      display: 'none'
+    }, '<')
     gsapAnimation()
   })
 </script>
@@ -166,17 +215,31 @@
       <div class="bg-white w-full min-h-screen flex items-center justify-center scaleContainer">
         <img src="https://images.unsplash.com/photo-1601823984263-b87b59798b70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="scaleImg w-200px object-contain">
       </div>
-      <div class="bg-black w-full min-h-screen flex items-center gap-5 md:gap-10 justify-center fadeContainer">
-        <img src="https://images.unsplash.com/photo-1605523746900-8aa30db1befd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80" class="fadeImg w-500px object-contain opacity-0 translate-y-100px">
-        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" class="fadeImg w-400px object-contain opacity-0 translate-y-150px">
+      <div class="scaleBottomContainer min-h-screen relative">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white z-10 text-100px"><p class="opacityText opacity-0 translate-y-100px">Hi</p></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white z-10 text-100px"><p class="opacityText2 opacity-0 translate-y-100px whitespace-nowrap">HAVE A NICE DAY</p></div>
+        <div class="absolute top-100px left-50% -translate-x-50% flex justify-center items-center font-bold w-60px h-60px bg-#feb401 mt-100px rounded-full">
+          <div class="absolute top-0 left-0 w-full h-full scaleCircle bg-#feb401 rounded-full"></div>
+          <p class="text-20px scaleText"> ↓</p>  
+        </div>
       </div>
-      <div class="typingContainer bg-#feb401 w-full min-h-screen flex items-center gap-5 md:gap-10 justify-center fadeContainer overflow-hidden">
-        <p class="typingText1 hidden text-62px font-bold text-stroke-black text-stroke-1px text-transparent">好</p>
-        <p class="typingText2 hidden text-62px font-bold text-stroke-black text-stroke-1px text-transparent">想</p>
-        <p class="typingText3 hidden text-62px font-bold text-stroke-black text-stroke-1px text-transparent">吃</p>
-        <p class="typingText4 hidden text-62px font-bold text-stroke-black text-stroke-1px text-transparent">雞</p>
-        <p class="typingText5 hidden text-62px font-bold text-stroke-black text-stroke-1px text-transparent">排</p>
-        <p class="text-62px text-#333 shineText opacity-0">_</p>
+      <div class="w-full min-h-screen bg-white grid grid-cols-2 flex items-center justify-center">
+        <div class="col-span-1 flex flex-col gap-50px max-w-1440px mx-auto px-5% fadeContent opacity-0">
+          <h2 class="text-100px font-bold">Kyoto</h2>
+          <p class="text-24px font-bold lh-30px">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae expedita laboriosam velit doloremque voluptatem mollitia, voluptatum recusandae nisi eveniet fugiat alias et explicabo, voluptatibus sit iusto exercitationem neque illum eos?</p>
+        </div>
+        <div class="col-span-1 flex flex-col gap-50px max-w-1440px mx-auto px-5%">
+          <img src="https://images.unsplash.com/photo-1505069446780-4ef442b5207f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-100% object-cover fadeImg opacity-0">
+        </div>
+      </div>
+      <div class="w-full min-h-screen bg-white grid grid-cols-2 flex items-center justify-center">
+        <div class="col-span-1 flex flex-col gap-50px max-w-1440px mx-auto px-5%">
+          <img src="https://images.unsplash.com/photo-1505069446780-4ef442b5207f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-100% object-cover fadeImg opacity-0">
+        </div>
+        <div class="col-span-1 flex flex-col gap-50px max-w-1440px mx-auto px-5% fadeContent opacity-0">
+          <h2 class="text-100px font-bold">Kyoto</h2>
+          <p class="text-24px font-bold lh-30px">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae expedita laboriosam velit doloremque voluptatem mollitia, voluptatum recusandae nisi eveniet fugiat alias et explicabo, voluptatibus sit iusto exercitationem neque illum eos?</p>
+        </div>
       </div>
     </div>
   </div>
