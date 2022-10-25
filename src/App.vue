@@ -5,6 +5,9 @@
   import { onMounted } from 'vue'
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
+  const backTop = () => {
+    gsap.to(window, { duration: 3, scrollTo: 0, ease: 'power3.out' })
+  }
 
   const newsTicker = () => {
     gsap.to('.newsTicker', {
@@ -97,10 +100,6 @@
       opacity: 1,
       duration: 1
     })
-    .to('.fadeText3 p', {
-      letterSpacing: '100px',
-      duration: 1
-    })
   }
 
   const fadeImgAnimation = () => {
@@ -133,8 +132,22 @@
       }
     })
     tl3.to('.horizon__item', {
-      xPercent: '-200',
+      xPercent: '-400',
       duration: 1
+    })
+  }
+  const fadeVideo = () => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.fadeVideoContainer',
+        start: 'top center'
+      }
+    })
+    tl.fromTo('.fadeVideoContainer video', {
+      currentTime: 0
+    }, {
+      opacity: '1',
+      currentTime: 1
     })
   }
 
@@ -145,32 +158,8 @@
     setTimeout(() => {
       fadeImgAnimation()
       horizonScroll()
+      fadeVideo()
     }, 500)
-
-    const scroller = document.querySelector('.scroller');
-
-    const bodyScrollBar = Scrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: true });
-
-    ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-        if (arguments.length) {
-          bodyScrollBar.scrollTop = value;
-        }
-        return bodyScrollBar.scrollTop;
-      }
-    });
-
-    bodyScrollBar.addListener(ScrollTrigger.update);
-
-    ScrollTrigger.defaults({ scroller: scroller });
-
-    if (document.querySelector('.gsap-marker-scroller-start')) {    
-  const markers = gsap.utils.toArray('[class *= "gsap-marker"]'); 
-
-  bodyScrollBar.addListener(({ offset }) => {  
-    gsap.set(markers, { marginTop: -offset.y })
-  });
-}
   })
 </script>
 
@@ -276,13 +265,24 @@
         <div class="w-full h-full flex items-center justify-center flex-none horizon__item">
           <img src="https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="" class="w-300px object-contain">
         </div>
+        <div class="w-full h-full flex items-center justify-center flex-none horizon__item">
+          <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=882&q=80" alt="" class="w-300px object-contain">
+        </div>
+        <div class="w-full h-full flex items-center justify-center flex-none horizon__item">
+          <img src="https://images.unsplash.com/photo-1608338167542-ad0c670edd0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="" class="w-300px object-contain">
+        </div>
       </div>
   
       <!-- 第六區塊 -->
-      <div class="w-full h-screen">
-        <video loop="true" autoplay="autoplay" muted class="w-full h-full object-cover">
-          <source src="./assets/001.mp4" type="video/mp4">
+      <div class="w-full h-screen fadeVideoContainer bg-black">
+        <video loop="true" autoplay="autoplay" muted="muted" playsinline="true" webkit-playsinline="true" class="w-full h-full object-cover op0">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-profile-of-a-distressed-young-woman-8736-large.mp4" type="video/mp4">
         </video>
+      </div>
+
+      <!-- 第七區塊 -->
+      <div class="w-full h-100px flex justify-center items-center bg-black">
+        <p @click="backTop()" class="text-white cursor-pointer">Back</p>
       </div>
     </div>
   </div>
