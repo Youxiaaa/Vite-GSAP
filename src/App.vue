@@ -79,10 +79,6 @@
       opacity: '1',
       duration: 1
     })
-    .to('.fadeText1 p', {
-      letterSpacing: '100px',
-      duration: 1
-    })
     .to('.fadeText1', {
       y: '-100px',
       opacity: 0,
@@ -90,10 +86,6 @@
     })
     .to('.fadeText2 ', {
       opacity: 1,
-      duration: 1
-    })
-    .to('.fadeText2 p', {
-      letterSpacing: '100px',
       duration: 1
     })
     .to('.fadeText2', {
@@ -112,7 +104,7 @@
   }
 
   const fadeImgAnimation = () => {
-    gsap.utils.toArray('.fadeImg').forEach((item) => {
+    gsap.utils.toArray('.fadeImg').forEach((item, idx) => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: item,
@@ -130,103 +122,167 @@
     })
   }
 
+  const horizonScroll = () => {
+    const tl3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.horizonContainer',
+        start: 'top top',
+        end: '+=3000px',
+        pin: true,
+        scrub: true
+      }
+    })
+    tl3.to('.horizon__item', {
+      xPercent: '-200',
+      duration: 1
+    })
+  }
+
   onMounted(() => {
     newsTicker()
     scaleAnimation()
     fadeAnimation()
     setTimeout(() => {
       fadeImgAnimation()
+      horizonScroll()
     }, 500)
+
+    const scroller = document.querySelector('.scroller');
+
+    const bodyScrollBar = Scrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: true });
+
+    ScrollTrigger.scrollerProxy(".scroller", {
+      scrollTop(value) {
+        if (arguments.length) {
+          bodyScrollBar.scrollTop = value;
+        }
+        return bodyScrollBar.scrollTop;
+      }
+    });
+
+    bodyScrollBar.addListener(ScrollTrigger.update);
+
+    ScrollTrigger.defaults({ scroller: scroller });
+
+    if (document.querySelector('.gsap-marker-scroller-start')) {    
+  const markers = gsap.utils.toArray('[class *= "gsap-marker"]'); 
+
+  bodyScrollBar.addListener(({ offset }) => {  
+    gsap.set(markers, { marginTop: -offset.y })
+  });
+}
   })
 </script>
 
 <template>
-  <div class="bodyBg bg-black overflow-hidden">
-    <!-- 第一區塊 -->
-    <div class="w-full min-h-screen relative overflow-hidden">
-      <!-- 上下跑馬燈 -->
-      <ul class="newsTicker whitespace-nowrap text-transparent text-stroke-1px text-stroke-white text-80px">
-        <li>
-          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
-          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
-          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
-          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
-          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
-          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
-        </li>
-      </ul>
-      <ul class="absolute bottom-0 -right-0% newsTicker2 whitespace-nowrap text-transparent text-stroke-1px text-stroke-white text-80px">
-        <li>
-          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
-          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
-          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
-          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
-          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
-          <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
-        </li>
-      </ul>
-
-      <!-- 左文右圖 -->
-      <div class="absolute top-1/2 -translate-y-1/2 left-0 w-full text-white text-100px px-5%">
-        <div class="grid grid-cols-2 gap-50px items-center">
-          <div class="col-span-1">
-            <h2 class="font-bold splitText overflow-hidden">AR T</h2>
-            <p class="text-30px lh-40px splitText overflow-hidden">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex numquam assumenda sed eligendi odio eveniet culpa voluptas dolorem doloremque. Ratione.</p>
-          </div>
-          <div class="col-span-1 flex items-center justify-center">
-            <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="max-w-300px firstImg opacity-0 scale-0">
+  <div class="scroller">
+    <div class="bodyBg bg-black overflow-hidden">
+      <!-- 第一區塊 -->
+      <div class="w-full min-h-screen relative overflow-hidden">
+        <!-- 上下跑馬燈 -->
+        <ul class="newsTicker whitespace-nowrap text-transparent text-stroke-1px text-stroke-white text-80px">
+          <li>
+            <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+            <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+            <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+            <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+            <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+            <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+          </li>
+        </ul>
+        <ul class="absolute bottom-0 -right-0% newsTicker2 whitespace-nowrap text-transparent text-stroke-1px text-stroke-white text-80px">
+          <li>
+            <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+            <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+            <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+            <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+            <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+            <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
+          </li>
+        </ul>
+  
+        <!-- 左文右圖 -->
+        <div class="absolute top-1/2 -translate-y-1/2 left-0 w-full text-white text-100px px-5%">
+          <div class="grid grid-cols-2 gap-50px items-center">
+            <div class="col-span-1">
+              <h2 class="font-bold splitText overflow-hidden">AR T</h2>
+              <p class="text-30px lh-40px splitText overflow-hidden">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex numquam assumenda sed eligendi odio eveniet culpa voluptas dolorem doloremque. Ratione.</p>
+            </div>
+            <div class="col-span-1 flex items-center justify-center">
+              <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="max-w-300px firstImg opacity-0 scale-0">
+            </div>
           </div>
         </div>
+  
       </div>
-
-    </div>
-    <!-- 第二區塊 -->
-    <div class="w-full relative scaleContainer">
-      <div class="scaleCircle w-60px h-60px rounded-full bg-gradient-to-l from-#C30500 to-#017AB6 absolute top-0 left-1/2 -translate-x-1/2 flex items-center justify-center text-white">
-        <p class="scaleText">Go</p>
+      <!-- 第二區塊 -->
+      <div class="w-full relative scaleContainer">
+        <div class="scaleCircle w-60px h-60px rounded-full bg-gradient-to-l from-#C30500 to-#017AB6 absolute top-0 left-1/2 -translate-x-1/2 flex items-center justify-center text-white">
+          <p class="scaleText">Go</p>
+        </div>
       </div>
-    </div>
-
-    <!-- 第三區塊 -->
-    <div class="w-full relative fadeContainer">
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fadeText1 opacity-0">
-        <p class="text-100px font-bold text-white tracking-20px text-center">GSAP</p>
+  
+      <!-- 第三區塊 -->
+      <div class="w-full relative fadeContainer">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fadeText1 op0">
+          <p class="text-50px md:text-100px font-bold text-white tracking-20px text-center">GSAP</p>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fadeText2 opacity-0">
+          <p class="text-50px md:text-100px font-bold text-white tracking-20px text-center">IS</p>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fadeText3 opacity-0">
+          <p class="text-50px md:text-100px font-bold text-white tracking-20px text-center">AWESOME</p>
+        </div>
       </div>
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fadeText2 opacity-0">
-        <p class="text-100px font-bold text-white tracking-20px text-center">IS</p>
+  
+      <!-- 第四區塊 -->
+      <div class=" min-h-screen bg-black mt-300px px-[5%] overflow-x-hidden mx-auto pt-300px">
+        <div class="columns-5 gap-50px">
+          <img src="https://images.unsplash.com/photo-1501472393568-6d98729ac121?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1559913929-08b6989ec45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1566592802312-4fb1d22b3d60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1501472266257-6fbdb19654ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1501472393568-6d98729ac121?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1559913929-08b6989ec45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1566592802312-4fb1d22b3d60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1501472266257-6fbdb19654ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1501472393568-6d98729ac121?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1559913929-08b6989ec45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1566592802312-4fb1d22b3d60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1501472266257-6fbdb19654ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1501472393568-6d98729ac121?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1559913929-08b6989ec45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1566592802312-4fb1d22b3d60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+          <img src="https://images.unsplash.com/photo-1501472266257-6fbdb19654ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+        </div>
       </div>
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fadeText3 opacity-0">
-        <p class="text-100px font-bold text-white tracking-20px text-center">AWESOME</p>
+  
+      <!-- 第五區塊 -->
+      <div class="w-full h-screen flex whitespace-nowrap overflow-hidden bg-black horizonContainer">
+        <div class="w-full h-full flex items-center justify-center flex-none horizon__item">
+          <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=890&q=80" alt="" class="w-300px object-contain">
+        </div>
+        <div class="w-full h-full flex items-center justify-center flex-none horizon__item">
+          <img src="https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=768&q=80" alt="" class="w-300px object-contain">
+        </div>
+        <div class="w-full h-full flex items-center justify-center flex-none horizon__item">
+          <img src="https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="" class="w-300px object-contain">
+        </div>
       </div>
-    </div>
-
-    <!-- 第四區塊 -->
-    <div class=" min-h-screen bg-black mt-300px px-[5%] overflow-x-hidden mx-auto pt-300px">
-      <div class="columns-3 gap-50px">
-        <img src="https://images.unsplash.com/photo-1501472393568-6d98729ac121?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1559913929-08b6989ec45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1566592802312-4fb1d22b3d60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1501472266257-6fbdb19654ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1501472393568-6d98729ac121?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1559913929-08b6989ec45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1566592802312-4fb1d22b3d60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1501472266257-6fbdb19654ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1501472393568-6d98729ac121?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1559913929-08b6989ec45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1566592802312-4fb1d22b3d60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1501472266257-6fbdb19654ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1501472393568-6d98729ac121?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1559913929-08b6989ec45e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1566592802312-4fb1d22b3d60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
-        <img src="https://images.unsplash.com/photo-1501472266257-6fbdb19654ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
+  
+      <!-- 第六區塊 -->
+      <div class="w-full h-screen">
+        <video loop="true" autoplay="autoplay" muted class="w-full h-full object-cover">
+          <source src="./assets/001.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </div>
