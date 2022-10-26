@@ -49,7 +49,7 @@
       }
     })
     tl.to('.scaleCircle', {
-      scale: '100',
+      scale: '50',
       duration: 1
     })
     .to('.scaleText', {
@@ -60,7 +60,7 @@
       display: 'none'
     })
     .to('.bodyBg', {
-      className: 'bg-gradient-to-l from-#8B4151 to-#665879'
+      className: 'bg-gradient-to-l from-#9C3540 to-#50648E'
     }, '<')
   }
 
