@@ -12,7 +12,7 @@ npm run dev
 npm run build
 ```
 
-// version
+## version
 ```bash
 npm => 18.12.1
 npm => 9.4.1
