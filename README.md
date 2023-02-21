@@ -1,7 +1,19 @@
-# Vue 3 + Vite
+# Vite + Gsap
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Setup
+```bash
+// install
+npm i
 
-## Recommended IDE Setup
+// open
+npm run dev
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+// build
+npm run build
+```
+
+## version
+```bash
+npm => 18.12.1
+npm => 9.4.1
+```
