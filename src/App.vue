@@ -170,7 +170,7 @@
     <div class="bodyBg bg-black overflow-hidden">
       <!-- 第一區塊 -->
       <div class="w-full min-h-screen relative overflow-hidden">
-        <!-- 上下跑馬燈 -->
+        <!-- 上跑馬燈 -->
         <ul class="newsTicker whitespace-nowrap text-transparent text-stroke-1px text-stroke-white text-80px">
           <li>
             <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
@@ -181,7 +181,8 @@
             <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
           </li>
         </ul>
-        <ul class="absolute bottom-0 -right-0% newsTicker2 whitespace-nowrap text-transparent text-stroke-1px text-stroke-white text-80px">
+        <!-- 下跑馬燈 -->
+        <ul class="absolute bottom-0 -right-50% newsTicker2 whitespace-nowrap text-transparent text-stroke-1px text-stroke-white text-80px">
           <li>
             <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
             <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
@@ -191,7 +192,7 @@
             <span class="inline-block"> GOOD MORNING GOOD MORNING GOOD MORNING GOOD MORNING </span>
           </li>
         </ul>
-  
+
         <!-- 左文右圖 -->
         <div class="absolute top-1/2 -translate-y-1/2 left-0 w-full text-white text-100px px-5%">
           <div class="grid grid-cols-2 gap-50px items-center">
@@ -204,16 +205,17 @@
             </div>
           </div>
         </div>
-  
+
       </div>
       <!-- 第二區塊 -->
       <div class="w-full relative scaleContainer">
+        <!-- <img src="https://images.unsplash.com/photo-1613005798967-632017e477c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="" class="scaleCircle w-100px rounded-full"> -->
         <div class="scaleCircle w-60px h-60px rounded-full bg-gradient-to-l from-#C30500 to-#017AB6 absolute top-0 left-1/2 -translate-x-1/2 flex items-center justify-center text-white">
           <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10px h-10px rounded-full scale-0 bg-#000 scaleCircle2 z-10"></div>
           <p class="scaleText">Go</p>
         </div>
       </div>
-  
+
       <!-- 第三區塊 -->
       <div class="w-full relative fadeContainer">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fadeText1 op0">
@@ -226,7 +228,7 @@
           <p class="text-50px md:text-100px font-bold text-white tracking-20px text-center">AWESOME</p>
         </div>
       </div>
-  
+
       <!-- 第四區塊 -->
       <div class=" min-h-screen bg-black mt-300px px-[5%] overflow-x-hidden mx-auto pt-300px">
         <div class="columns-5 gap-50px">
@@ -256,7 +258,7 @@
           <img src="https://images.unsplash.com/photo-1501472266257-6fbdb19654ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="w-full mt-50px fadeImg opacity-0">
         </div>
       </div>
-  
+
       <!-- 第五區塊 -->
       <div class="w-full h-screen flex whitespace-nowrap overflow-hidden bg-black horizonContainer">
         <div class="w-full h-full flex items-center justify-center flex-none horizon__item">
@@ -269,13 +271,13 @@
           <img src="https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="" class="w-300px object-contain">
         </div>
         <div class="w-full h-full flex items-center justify-center flex-none horizon__item">
-          <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=882&q=80" alt="" class="w-300px object-contain">
+          <img src="https://images.unsplash.com/photo-1556699894-acf2cb482574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80" alt="" class="w-300px object-contain">
         </div>
         <div class="w-full h-full flex items-center justify-center flex-none horizon__item">
-          <img src="https://images.unsplash.com/photo-1608338167542-ad0c670edd0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="" class="w-300px object-contain">
+          <img src="https://images.unsplash.com/photo-1511884642898-4c92249e20b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="" class="w-300px object-contain">
         </div>
       </div>
-  
+
       <!-- 第六區塊 -->
       <div class="w-full h-screen fadeVideoContainer bg-black">
         <video loop="true" autoplay="autoplay" muted="muted" playsinline="true" webkit-playsinline="true" class="w-full h-full object-cover op0">
